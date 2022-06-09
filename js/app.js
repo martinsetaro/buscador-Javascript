@@ -36,6 +36,7 @@ let datosBusqueda = {
 
 document.addEventListener('DOMContentLoaded',()=>{
     mostrarAutos(autos);//muestra los automoviles
+    limpiarHTML();
 
 
     //llena option años
@@ -95,16 +96,25 @@ function mostrarAutos(autos){
     limpiarHTML();// elimina el html para que no haya duplicado
 
  autos.forEach( auto => {
-     const autoHTML = document.createElement('p')
-
+     const autoHTML = document.createElement('div')
+     autoHTML.classList.add('itemAutos')
      const {marca,modelo,year,puertas,transmision,precio,color} = auto;
-     
-     autoHTML.textContent = `
-     ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmision: ${transmision} - Precio ${precio} - color ${color}
 
+   resultado.innerHTML += `
+   <div class="itemAutos">
+   <h2>${modelo}</h2>
+   <h4>${marca}</h4>
+   <img src="https://img.freepik.com/vector-gratis/auto-logo_73313-24.jpg?w=2000" alt="img" title="img"/>
+   <h3>${year}</h3>
+   <span>$ ${precio}</span>
+   <p>${puertas} Puertas</p>
+   <p>Tipo Transmision: ${transmision}</p>
+   <p>Color : ${color}</p>
+
+   </div>
+   `
      
-     `
-     resultado.appendChild(autoHTML)
+   
 
  });
 }
@@ -157,10 +167,13 @@ function noResultado(){
     limpiarHTML();
 
     const noResultado = document.createElement('div')
-    noResultado.classList.add('alerta','error')
-    noResultado.textContent = "No se encontraron resultados"
-
-    resultado.appendChild(noResultado);
+    noResultado.classList.add('alerta')
+    
+    resultado.innerHTML = `
+             <div class="alerta">
+             <img src="../img/error.png" alt="imgg" title="imgg"/>
+             </div>
+    `
 }
 
 function filtrarMarca(auto){
